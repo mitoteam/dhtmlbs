@@ -13,7 +13,7 @@ type JustifiedLRElement struct {
 // force interface implementation declaring fake variable
 var _ dhtml.ElementI = (*JustifiedLRElement)(nil)
 
-func NewJustifiedLR1() *JustifiedLRElement {
+func NewJustifiedLR() *JustifiedLRElement {
 	return &JustifiedLRElement{}
 }
 

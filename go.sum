@@ -6,6 +6,8 @@ github.com/elliotchance/orderedmap/v2 v2.6.0 h1:Zzo4k/u6hTRSt4NbYVphwOn5fBKlLpcb
 github.com/elliotchance/orderedmap/v2 v2.6.0/go.mod h1:85lZyVbpGaGvHvnKa7Qhx7zncAdBIBq6u56Hb1PRU5Q=
 github.com/mitoteam/dhtml v0.0.0-20241218154713-e5b8f4f01206 h1:yxG1BfIrEfuRmMzGOA7VdtG1RjNzPHv/e5XgWuEQZ/A=
 github.com/mitoteam/dhtml v0.0.0-20241218154713-e5b8f4f01206/go.mod h1:OACqCmnu0gbpDJSvTuhr/RsDsVCU3qvX0K/9mME53Tk=
+github.com/mitoteam/dhtmlform v0.0.0-20241218154743-8d2f924d4a88 h1:X9iZcHKG7uF3eF8JEQfR2UzHcNsyV0W6fG5J2O+VUJM=
+github.com/mitoteam/dhtmlform v0.0.0-20241218154743-8d2f924d4a88/go.mod h1:OgpZUTR4kow/FCWnp8Virz0xRRRu4Mw9G5LzuW8NTEw=
 github.com/mitoteam/mttools v0.0.0-20241218140423-a3403a9ff8ad h1:cvIvdpgKhZ10HOOgvqKIuGIenKryYmYvm6ZusH6G3qo=
 github.com/mitoteam/mttools v0.0.0-20241218140423-a3403a9ff8ad/go.mod h1:pgReIWU3E5FzIcyzB1JqPYIvsszInvFosMsd5v+qK00=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

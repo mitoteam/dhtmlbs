@@ -2,7 +2,10 @@ module github.com/mitoteam/dhtmlbs
 
 go 1.23
 
-require github.com/mitoteam/dhtml v0.0.0-20241218154713-e5b8f4f01206
+require (
+	github.com/mitoteam/dhtml v0.0.0-20241218154713-e5b8f4f01206
+	github.com/mitoteam/dhtmlform v0.0.0-20241218154743-8d2f924d4a88
+)
 
 require (
 	github.com/drhodes/golorem v0.0.0-20220328165741-da82e5b29246 // indirect

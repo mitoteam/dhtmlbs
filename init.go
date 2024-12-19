@@ -2,12 +2,12 @@ package dhtmlbs
 
 import (
 	"github.com/mitoteam/dhtml"
+	"github.com/mitoteam/dhtmlform"
 )
 
 func init() {
-	/*
-		dhtmlformSettings := dhtmlform.Settings()
-		dhtmlformSettings.FormErrorsRendererF = func(fd *dhtml.FormData) (out dhtml.HtmlPiece) {
+	dhtmlform.Settings().FormErrorsRenderF = func(fe *dhtmlform.FormErrors) (out dhtml.HtmlPiece) {
+		/*
 			container := dhtml.Div().Class("border p-3 border-danger border-2 mb-3")
 
 			for name, itemErrors := range fd.GetErrors() {
@@ -34,9 +34,9 @@ func init() {
 			}
 
 			out.Append(container)
-			return out
-		}
-	*/
+		*/
+		return out
+	}
 
 	dhtml.Settings().EmptyLabelRendererF = func(label string, span *dhtml.Tag) {
 		if label == "" {

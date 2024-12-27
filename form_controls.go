@@ -8,6 +8,7 @@ import (
 
 const (
 	inputControlKind         = "bs_input"
+	textareaControlKind      = "bs_textarea"
 	checkboxControlKind      = "bs_checkbox"
 	floatingInputControlKind = "bs_floatinginput"
 	submitControlKind        = "bs_submit_btn"
@@ -71,6 +72,38 @@ func init() {
 
 			out.Append(rootTag)
 
+			return out
+		},
+	})
+
+	dhtmlform.RegisterFormControlHandler(textareaControlKind, &dhtmlform.FormControlHandler{
+		RenderF: func(control *dhtmlform.FormControlElement) (out dhtml.HtmlPiece) {
+			rootTag := formControlWrapper(control)
+
+			if !control.GetLabel().IsEmpty() {
+				rootTag.Append(renderControlLabel(control))
+			}
+
+			rows := control.GetProp("rows")
+			if mttools.IsEmpty(rows) {
+				rows = 3
+			}
+
+			textareaTag := dhtml.NewTag("textarea").Id(control.GetId()).Class("form-control").
+				Attribute("rows", mttools.AnyToString(rows)).
+				Attribute("name", control.Name).Append(control.GetValue())
+
+			if control.GetPlaceholder() != "" {
+				textareaTag.Attribute("placeholder", control.GetPlaceholder())
+			}
+
+			rootTag.Append(textareaTag)
+
+			if !control.GetNote().IsEmpty() {
+				rootTag.Append(renderControlNote(control))
+			}
+
+			out.Append(rootTag)
 			return out
 		},
 	})
@@ -167,6 +200,10 @@ func NewFloatingTextInput(name string) *dhtmlform.FormControlElement {
 
 func NewFloatingPasswordInput(name string) *dhtmlform.FormControlElement {
 	return dhtmlform.NewFormControl(floatingInputControlKind, name).SetProp("type", "password")
+}
+
+func NewTextarea(name string) *dhtmlform.FormControlElement {
+	return dhtmlform.NewFormControl(textareaControlKind, name)
 }
 
 func NewCheckbox(name string) *dhtmlform.FormControlElement {

@@ -6,12 +6,15 @@ import (
 	"github.com/mitoteam/mttools"
 )
 
-const floatingInputControlKind = "floatinginput"
+const (
+	floatingInputControlKind = "bs_floatinginput"
+	submitControlKind        = "bs_submit_btn"
+)
 
 func init() {
 	dhtmlform.RegisterFormControlHandler(floatingInputControlKind, &dhtmlform.FormControlHandler{
 		RenderF: func(control *dhtmlform.FormControlElement) (out dhtml.HtmlPiece) {
-			rootTag := dhtml.Div().Class("form-floating")
+			rootTag := dhtml.Div().Class("form-floating mb-3")
 
 			if control.IsError() {
 				rootTag.Class(classesBlockError)
@@ -44,6 +47,25 @@ func init() {
 			return out
 		},
 	})
+
+	dhtmlform.RegisterFormControlHandler(submitControlKind, &dhtmlform.FormControlHandler{
+		RenderF: func(control *dhtmlform.FormControlElement) (out dhtml.HtmlPiece) {
+			tag := dhtml.NewTag("button").Attribute("type", "submit").Class("btn btn-primary")
+
+			if !mttools.IsEmpty(control.GetValue()) {
+				tag.Attribute("name", control.Name).Attribute("value", mttools.AnyToString(control.GetValue()))
+			}
+
+			if control.GetLabel().IsEmpty() {
+				tag.Append("Submit")
+			} else {
+				tag.Append(control.GetLabel())
+			}
+
+			out.Append(tag)
+			return out
+		},
+	})
 }
 
 func NewFloatingTextInput(name string) *dhtmlform.FormControlElement {
@@ -52,4 +74,8 @@ func NewFloatingTextInput(name string) *dhtmlform.FormControlElement {
 
 func NewFloatingPasswordInput(name string) *dhtmlform.FormControlElement {
 	return dhtmlform.NewFormControl(floatingInputControlKind, name).SetProp("type", "password")
+}
+
+func NewSubmitBtn() *dhtmlform.FormControlElement {
+	return dhtmlform.NewFormControl(submitControlKind, "submit")
 }

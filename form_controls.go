@@ -8,6 +8,7 @@ import (
 
 const (
 	inputControlKind         = "bs_input"
+	checkboxControlKind      = "bs_checkbox"
 	floatingInputControlKind = "bs_floatinginput"
 	submitControlKind        = "bs_submit_btn"
 )
@@ -74,6 +75,40 @@ func init() {
 		},
 	})
 
+	dhtmlform.RegisterFormControlHandler(checkboxControlKind, &dhtmlform.FormControlHandler{
+		RenderF: func(control *dhtmlform.FormControlElement) (out dhtml.HtmlPiece) {
+			rootTag := formControlWrapper(control)
+
+			inputTag := dhtml.NewTag("input").Id(control.GetId()).Attribute("type", "checkbox").
+				Attribute("name", control.Name).Attribute("value", "on")
+
+			if mttools.AnyToBool(control.GetValue()) {
+				inputTag.Attribute("checked", "")
+			}
+
+			rootTag.Append(inputTag)
+
+			if !control.GetLabel().IsEmpty() {
+				rootTag.Append(renderControlLabel(control))
+			}
+
+			if !control.GetNote().IsEmpty() {
+				rootTag.Append(renderControlNote(control))
+			}
+
+			out.Append(rootTag)
+			return out
+		},
+
+		ProcessPostValueF: func(rawValue any) any {
+			if rawValue == "on" {
+				return true
+			} else {
+				return mttools.AnyToBool(rawValue)
+			}
+		},
+	})
+
 	dhtmlform.RegisterFormControlHandler(submitControlKind, &dhtmlform.FormControlHandler{
 		RenderF: func(control *dhtmlform.FormControlElement) (out dhtml.HtmlPiece) {
 			tag := dhtml.NewTag("button").Attribute("type", "submit").Class("btn btn-success")
@@ -132,6 +167,10 @@ func NewFloatingTextInput(name string) *dhtmlform.FormControlElement {
 
 func NewFloatingPasswordInput(name string) *dhtmlform.FormControlElement {
 	return dhtmlform.NewFormControl(floatingInputControlKind, name).SetProp("type", "password")
+}
+
+func NewCheckbox(name string) *dhtmlform.FormControlElement {
+	return dhtmlform.NewFormControl(checkboxControlKind, name)
 }
 
 func NewSubmitBtn() *dhtmlform.FormControlElement {

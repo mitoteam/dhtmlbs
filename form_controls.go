@@ -133,12 +133,8 @@ func init() {
 			return out
 		},
 
-		ProcessPostValueF: func(rawValue any) any {
-			if rawValue == "on" {
-				return true
-			} else {
-				return mttools.AnyToBool(rawValue)
-			}
+		ProcessPostValueF: func(controlData *dhtmlform.FormControlData) {
+			controlData.Value = controlData.Value == "on"
 		},
 	})
 

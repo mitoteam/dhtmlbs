@@ -27,7 +27,7 @@ func init() {
 
 			inputTag := dhtml.NewTag("input").Id(control.GetId()).Class("form-control").
 				Attribute("type", control.GetProp("type").(string)).
-				Attribute("name", control.Name).Attribute("value", mttools.AnyToString(control.GetValue()))
+				Attribute("name", control.GetName()).Attribute("value", mttools.AnyToString(control.GetValue()))
 
 			if control.GetPlaceholder() != "" {
 				inputTag.Attribute("placeholder", control.GetPlaceholder())
@@ -50,7 +50,7 @@ func init() {
 
 			inputTag := dhtml.NewTag("input").Id(control.GetId()).Class("form-control").
 				Attribute("type", control.GetProp("type").(string)).
-				Attribute("name", control.Name).Attribute("value", mttools.AnyToString(control.GetValue()))
+				Attribute("name", control.GetName()).Attribute("value", mttools.AnyToString(control.GetValue()))
 
 			//placeholder is required
 			if control.GetPlaceholder() == "" {
@@ -91,7 +91,7 @@ func init() {
 
 			textareaTag := dhtml.NewTag("textarea").Id(control.GetId()).Class("form-control").
 				Attribute("rows", mttools.AnyToString(rows)).
-				Attribute("name", control.Name).Append(control.GetValue())
+				Attribute("name", control.GetName()).Append(control.GetValue())
 
 			if control.GetPlaceholder() != "" {
 				textareaTag.Attribute("placeholder", control.GetPlaceholder())
@@ -113,7 +113,7 @@ func init() {
 			rootTag := formControlWrapper(control)
 
 			inputTag := dhtml.NewTag("input").Id(control.GetId()).Attribute("type", "checkbox").
-				Attribute("name", control.Name).Attribute("value", "on")
+				Attribute("name", control.GetName()).Attribute("value", "on")
 
 			if mttools.AnyToBool(control.GetValue()) {
 				inputTag.Attribute("checked", "")
@@ -143,7 +143,7 @@ func init() {
 			tag := dhtml.NewTag("button").Attribute("type", "submit").Class("btn btn-success")
 
 			if !mttools.IsEmpty(control.GetValue()) {
-				tag.Attribute("name", control.Name).Attribute("value", mttools.AnyToString(control.GetValue()))
+				tag.Attribute("name", control.GetName()).Attribute("value", mttools.AnyToString(control.GetValue()))
 			}
 
 			if control.GetLabel().IsEmpty() {

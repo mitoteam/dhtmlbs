@@ -1,6 +1,8 @@
 package dhtmlbs
 
 import (
+	"slices"
+
 	"github.com/mitoteam/dhtml"
 	"github.com/mitoteam/dhtmlform"
 	"github.com/mitoteam/mttools"
@@ -9,6 +11,7 @@ import (
 // https://getbootstrap.com/docs/5.3/forms/select/
 
 const selectControlKind = "bs_select"
+const selectControlDataValuesProp = "values"
 
 func init() {
 	dhtmlform.RegisterFormControlHandler(selectControlKind, selectFormControlHandler)
@@ -17,8 +20,7 @@ func init() {
 type SelectFormControlElement struct {
 	dhtmlform.FormControlElement
 
-	options  mttools.Values
-	options2 map[any]dhtml.HtmlPiece // value => label
+	options mttools.Values
 }
 
 // force interface implementation
@@ -31,13 +33,26 @@ func NewSelect(name string) *SelectFormControlElement {
 
 	c.FormControlElement = *dhtmlform.NewFormControl(selectControlKind, name)
 
-	c.FormControlElement.SetProp("ref", c) //reference to *SelectFormControlElement to be used in FormControlHandler.RenderF
+	//reference to *SelectFormControlElement to be used in FormControlHandler.RenderF
+	c.FormControlElement.SetProp("ref", c)
 
 	return c
 }
 
-func (c *SelectFormControlElement) Option(value any, label any) *SelectFormControlElement {
-	c.options.Set(mttools.AnyToString(value), label)
+func (c *SelectFormControlElement) Option(value string, label any) *SelectFormControlElement {
+	var knownValues []string
+
+	if c.GetControlData().HasProp(selectControlDataValuesProp) {
+		knownValues = c.GetControlData().GetProp(selectControlDataValuesProp).([]string)
+	} else {
+		knownValues = make([]string, 0)
+	}
+
+	knownValues = append(knownValues, value)
+
+	c.GetControlData().SetProp(selectControlDataValuesProp, knownValues)
+
+	c.options.Set(value, label)
 
 	return c
 }
@@ -76,7 +91,12 @@ var selectFormControlHandler = &dhtmlform.FormControlHandler{
 	},
 
 	ProcessPostValueF: func(controlData *dhtmlform.FormControlData) {
-		//log.Printf("dhtmlbs.SelectFormControlElement.ProcessPostValueF: %+v\n", controlData)
-		//controlData.Value = controlData.Value == "on"
+		knownValues := controlData.GetProp(selectControlDataValuesProp).([]string)
+		//log.Printf("dhtmlbs.SelectFormControlElement.ProcessPostValueF: %+v\n", possibleValues)
+
+		// unknown values protection
+		if !slices.Contains(knownValues, mttools.AnyToString(controlData.Value)) {
+			controlData.Value = nil
+		}
 	},
 }

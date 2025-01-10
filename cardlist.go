@@ -19,15 +19,21 @@ func (e *CardListElement) Add(card *CardElement) *CardListElement {
 	return e
 }
 
-func (e *CardListElement) Class(v any) *CardListElement {
-	e.classes.Add(v)
+func (e *CardListElement) Class(v ...any) *CardListElement {
+	e.classes.Add(v...)
+	return e
+}
+
+// Adds default flex grid classes.
+func (e *CardListElement) DefaultGrid() *CardListElement {
+	e.classes.AddFromSet(GridRowColMdClasses, "row-cols-md-2")
+	e.classes.AddFromSet(GridRowColXlClasses, "row-cols-xl-3")
+
 	return e
 }
 
 func (e *CardListElement) GetTags() dhtml.TagList {
 	e.classes.AddFromSet(GapClasses, DefaultGapClass)
-	e.classes.AddFromSet(GridRowColMdClasses, "row-cols-md-2")
-	e.classes.AddFromSet(GridRowColXlClasses, "row-cols-xl-3")
 
 	root := dhtml.Div().Class("card-list row").Class(e.classes)
 

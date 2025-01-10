@@ -5,8 +5,9 @@ import "github.com/mitoteam/dhtml"
 //https://getbootstrap.com/docs/5.3/components/card/
 
 type CardElement struct {
-	header dhtml.HtmlPiece
-	body   dhtml.HtmlPiece
+	header                        dhtml.HtmlPiece
+	body                          dhtml.HtmlPiece
+	class, headerClass, bodyClass dhtml.Classes
 }
 
 // force interface implementation declaring fake variable
@@ -16,42 +17,57 @@ func NewCard() *CardElement {
 	return &CardElement{}
 }
 
+// Add card classes
+func (e *CardElement) Class(v ...any) *CardElement {
+	e.class.Add(v...)
+	return e
+}
+
 // Appends something to header
-func (c *CardElement) Header(v any) *CardElement {
-	c.header.Append(v)
-	return c
+func (e *CardElement) Header(v ...any) *CardElement {
+	e.header.Append(v...)
+	return e
 }
 
 func (c *CardElement) GetHeader() *dhtml.HtmlPiece {
 	return &c.header
 }
 
+// Add card header classes
+func (e *CardElement) HeaderClass(v ...any) *CardElement {
+	e.headerClass.Add(v...)
+	return e
+}
+
 // Appends something to body
-func (c *CardElement) Body(v any) *CardElement {
-	c.body.Append(v)
-	return c
+func (e *CardElement) Body(v ...any) *CardElement {
+	e.body.Append(v...)
+	return e
 }
 
 // Pointer to card's body
-func (c *CardElement) GetBody() *dhtml.HtmlPiece {
-	return &c.body
+func (e *CardElement) GetBody() *dhtml.HtmlPiece {
+	return &e.body
 }
 
-// region Rendering
-func (c *CardElement) GetTags() dhtml.TagList {
-	root := dhtml.Div().Class("card")
+// Add card body classes
+func (e *CardElement) BodyClass(v ...any) *CardElement {
+	e.bodyClass.Add(v...)
+	return e
+}
 
-	if !c.header.IsEmpty() {
-		root.Append(dhtml.Div().Class("card-header").Append(c.header))
+func (e *CardElement) GetTags() dhtml.TagList {
+	root := dhtml.Div().Class("card", e.class)
+
+	if !e.header.IsEmpty() {
+		root.Append(dhtml.Div().Class("card-header", e.headerClass).Append(e.header))
 	}
 
-	if !c.body.IsEmpty() {
+	if !e.body.IsEmpty() {
 		root.Append(
-			dhtml.Div().Class("card-body").Append(c.body),
+			dhtml.Div().Class("card-body", e.bodyClass).Append(e.body),
 		)
 	}
 
 	return root.GetTags()
 }
-
-//endregion

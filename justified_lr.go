@@ -29,8 +29,8 @@ func (e *JustifiedLRElement) GetL() *dhtml.HtmlPiece {
 }
 
 // Add content to the left side.
-func (e *JustifiedLRElement) L(v any) *JustifiedLRElement {
-	e.l.Append(v)
+func (e *JustifiedLRElement) L(v ...any) *JustifiedLRElement {
+	e.l.Append(v...)
 	return e
 }
 
@@ -39,8 +39,8 @@ func (e *JustifiedLRElement) GetR() *dhtml.HtmlPiece {
 }
 
 // Add content to the right side.
-func (e *JustifiedLRElement) R(v any) *JustifiedLRElement {
-	e.r.Append(v)
+func (e *JustifiedLRElement) R(v ...any) *JustifiedLRElement {
+	e.r.Append(v...)
 	return e
 }
 

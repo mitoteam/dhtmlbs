@@ -14,7 +14,7 @@ const (
 	submitControlKind        = "bs_submit_btn"
 )
 
-var classBlockError dhtml.Classes = dhtml.NewClasses("border border-danger bg-danger")
+var classBlockError dhtml.Classes = dhtml.NewClasses("border border-danger-subtle bg-danger-subtle py-1")
 
 func init() {
 	dhtmlform.RegisterFormControlHandler(inputControlKind, &dhtmlform.FormControlHandler{

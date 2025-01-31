@@ -42,6 +42,12 @@ func (e *BtnElement) Confirm(message string) *BtnElement {
 	return e
 }
 
+func (e *BtnElement) Target(value string) *BtnElement {
+	e.tag.Attribute("target", value)
+
+	return e
+}
+
 func (e *BtnElement) Class(v any) *BtnElement {
 	e.tag.Class(v)
 	return e

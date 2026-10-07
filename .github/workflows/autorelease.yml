@@ -8,7 +8,7 @@ on:
 
 jobs:
   call-shared-workflow:
-    uses: mitoteam/shared-actions/blob/main/.github/workflows/go-pkg-autorelease.yml@main
+    uses: mitoteam/shared-actions/.github/workflows/go-pkg-autorelease.yml@main
     secrets: inherit
     permissions:
       contents: write

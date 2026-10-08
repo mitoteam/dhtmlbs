@@ -47,7 +47,7 @@ func (c *SelectFormControlElement) Option(value string, label any) *SelectFormCo
 	if c.GetControlData().HasProp(selectControlDataValuesProp) {
 		knownValues = c.GetControlData().GetProp(selectControlDataValuesProp).([]string)
 	} else {
-		knownValues = make([]string, 0)
+		knownValues = make([]string, 1)
 	}
 
 	knownValues = append(knownValues, value)

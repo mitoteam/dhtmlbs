@@ -178,6 +178,7 @@ func NewNumberInput(name string) *dhtmlform.FormControlElement {
 	return dhtmlform.NewFormControl(inputControlKind, name).SetProp("type", "number")
 }
 
+// INPUT to enter phone numbers
 func NewTelInput(name string) *dhtmlform.FormControlElement {
 	return dhtmlform.NewFormControl(inputControlKind, name).SetProp("type", "tel")
 }

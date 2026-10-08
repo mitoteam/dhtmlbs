@@ -26,6 +26,7 @@ type SelectFormControlElement struct {
 // force interface implementation
 var _ dhtmlform.FormControlElementI = (*SelectFormControlElement)(nil)
 
+// Select input (dropdown list)
 func NewSelect(name string) *SelectFormControlElement {
 	c := &SelectFormControlElement{
 		options: mttools.NewValues(),
@@ -39,6 +40,7 @@ func NewSelect(name string) *SelectFormControlElement {
 	return c
 }
 
+// Adds one option to the list
 func (c *SelectFormControlElement) Option(value string, label any) *SelectFormControlElement {
 	var knownValues []string
 
@@ -53,6 +55,15 @@ func (c *SelectFormControlElement) Option(value string, label any) *SelectFormCo
 	c.GetControlData().SetProp(selectControlDataValuesProp, knownValues)
 
 	c.options.Set(value, label)
+
+	return c
+}
+
+// Adds multiple options (keys as values and values as labels)
+func (c *SelectFormControlElement) OptionsMap(options map[string]any) *SelectFormControlElement {
+	for value, label := range options {
+		c.Option(value, label)
+	}
 
 	return c
 }

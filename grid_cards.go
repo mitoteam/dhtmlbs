@@ -2,39 +2,39 @@ package dhtmlbs
 
 import "github.com/mitoteam/dhtml"
 
-type CardListElement struct {
+type GridCardsElement struct {
 	cards   []*CardElement
 	classes dhtml.Classes
 }
 
 // force interface implementation declaring fake variable
-var _ dhtml.ElementI = (*CardListElement)(nil)
+var _ dhtml.ElementI = (*GridCardsElement)(nil)
 
 // Set of cards for pages like dashboards
 // https://getbootstrap.com/docs/5.3/components/card/#grid-cards
-func NewCardList() *CardListElement {
-	return &CardListElement{}
+func NewGridCards() *GridCardsElement {
+	return &GridCardsElement{}
 }
 
-func (e *CardListElement) Add(card *CardElement) *CardListElement {
+func (e *GridCardsElement) Add(card *CardElement) *GridCardsElement {
 	e.cards = append(e.cards, card)
 	return e
 }
 
-func (e *CardListElement) Class(v ...any) *CardListElement {
+func (e *GridCardsElement) Class(v ...any) *GridCardsElement {
 	e.classes.Add(v...)
 	return e
 }
 
 // Adds default flex grid classes.
-func (e *CardListElement) DefaultGrid() *CardListElement {
+func (e *GridCardsElement) DefaultGrid() *GridCardsElement {
 	e.classes.AddFromSet(GridRowColMdClasses, "row-cols-md-2")
 	e.classes.AddFromSet(GridRowColXlClasses, "row-cols-xl-3")
 
 	return e
 }
 
-func (e *CardListElement) GetTags() dhtml.TagList {
+func (e *GridCardsElement) GetTags() dhtml.TagList {
 	e.classes.AddFromSet(GapClasses, DefaultGapClass)
 
 	root := dhtml.Div().Class("card-list row").Class(e.classes)

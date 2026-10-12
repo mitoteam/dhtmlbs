@@ -13,6 +13,8 @@ type CardElement struct {
 // force interface implementation declaring fake variable
 var _ dhtml.ElementI = (*CardElement)(nil)
 
+// Single card
+// https://getbootstrap.com/docs/5.3/components/card/
 func NewCard() *CardElement {
 	return &CardElement{}
 }

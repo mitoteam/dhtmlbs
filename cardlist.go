@@ -10,6 +10,8 @@ type CardListElement struct {
 // force interface implementation declaring fake variable
 var _ dhtml.ElementI = (*CardListElement)(nil)
 
+// Set of cards for pages like dashboards
+// https://getbootstrap.com/docs/5.3/components/card/#grid-cards
 func NewCardList() *CardListElement {
 	return &CardListElement{}
 }

@@ -3,7 +3,7 @@ package dhtmlbs
 import "github.com/mitoteam/dhtml"
 
 type GridCardsElement struct {
-	cards   []*CardElement
+	cards   []dhtml.ElementI
 	classes dhtml.Classes
 }
 
@@ -16,7 +16,7 @@ func NewGridCards() *GridCardsElement {
 	return &GridCardsElement{}
 }
 
-func (e *GridCardsElement) Add(card *CardElement) *GridCardsElement {
+func (e *GridCardsElement) Add(card dhtml.ElementI) *GridCardsElement {
 	e.cards = append(e.cards, card)
 	return e
 }
